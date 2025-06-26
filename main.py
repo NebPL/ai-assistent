@@ -5,23 +5,24 @@ import sounddevice as sd
 import vosk
 import sys
 import json
+import os
 
 from commands import parseCommand
 
 q = queue.Queue()
 
 
-def run_script():
-    subprocess.run(["python3", "server.py"])
+subprocess.run(["python3", "server.py"])
 
-thread = threading.Thread(target=run_script)
-thread.start()
 
 
 def callback(indata, frames, time, status):
     if status:
         print(status, file=sys.stderr)
     q.put(bytes(indata))
+
+#def stopProgram():
+#    os._exit(0)
 
 model = vosk.Model("/Users/ben/home/programming/personal/ai-assistent/vosk-model-small-de-0.15")  # Pfad zum entpackten Modell
 
@@ -47,5 +48,4 @@ with sd.RawInputStream(samplerate=16000, blocksize=8000, dtype='int16',
             partial_text = json.loads(partial_result).get("partial", "")
             if partial_text:
                 print("Zwischenergebnis:", partial_text)
-
 
