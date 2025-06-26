@@ -1,14 +1,13 @@
 from flask import Flask, json, request, jsonify
 import subprocess
+import os
 
 app = Flask(__name__)
 
-@app.route('/update',  methods=['PUT'])
+@app.route('/update',  methods=['POST'])
 def update():
-    result = subprocess.run(["zsh", "/Users/ben/home/programming/personal/python_server/test.sh"], capture_output=True, text=True)
-
-    print("Ausgabe:")
-    print(result.stdout)
+    subprocess.run(["zsh", "/Users/ben/home/programming/personal/python_server/test.sh"], capture_output=True, text=True)
+    os._exit(0)
 
 
 if __name__ == '__main__':
