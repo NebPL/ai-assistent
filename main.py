@@ -14,7 +14,7 @@ def callback(indata, frames, time, status):
         print(status, file=sys.stderr)
     q.put(bytes(indata))
 
-model = vosk.Model("/Users/ben/home/programming/personal/stt/vosk-model-small-de-0.15")  # Pfad zum entpackten Modell
+model = vosk.Model("/Users/ben/home/programming/personal/ai-assistent/vosk-model-small-de-0.15")  # Pfad zum entpackten Modell
 
 with sd.RawInputStream(samplerate=16000, blocksize=8000, dtype='int16',
                        channels=1, callback=callback):
