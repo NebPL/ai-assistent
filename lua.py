@@ -1,6 +1,7 @@
 from lupa import LuaRuntime
 import os
 import re
+import pyttsx3
 
 lua = LuaRuntime()
 folder_path = "/Users/ben/.config/assistent-lua"
@@ -92,6 +93,13 @@ def handle_input(text):
 
 
 
+engine = pyttsx3.init()
+
+def playVoice(text, rate=175):
+        engine.setProperty('rate', rate)     
+
+        engine.say(text)
+        engine.runAndWait()
 
 
 def getCommand():
@@ -105,6 +113,7 @@ def command(pattern, execFunction):
 
 lua.globals()["getCommand"] = getCommand 
 lua.globals()["command"] = command 
+lua.globals()["playVoice"] =  playVoice 
 
 def load_lua_files():
 
