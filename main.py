@@ -1,4 +1,5 @@
-
+import threading
+import subprocess
 import queue
 import sounddevice as sd
 import vosk
@@ -8,6 +9,14 @@ import json
 from commands import parseCommand
 
 q = queue.Queue()
+
+
+def run_script():
+    subprocess.run(["python3", "server.py"])
+
+thread = threading.Thread(target=run_script)
+thread.start()
+
 
 def callback(indata, frames, time, status):
     if status:
